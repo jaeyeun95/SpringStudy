@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete 3 elements from project &apos;EX25_Security&apos;&#x0D;&#x0A;- Original project: &apos;EX25_Security&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     buy_ticket_end.jsp&#x0D;&#x0A;     buy_ticket_error.jsp&#x0D;&#x0A;     buy_ticket.jsp" description="Delete elements" element1="src/main/webapp/WEB-INF/views/buy_ticket_end.jsp" element2="src/main/webapp/WEB-INF/views/buy_ticket.jsp" element3="src/main/webapp/WEB-INF/views/buy_ticket_error.jsp" elements="0" flags="589830" id="org.eclipse.jdt.ui.delete" resources="3" stamp="1635236442531" subPackages="false" version="1.0"/>
+</session>

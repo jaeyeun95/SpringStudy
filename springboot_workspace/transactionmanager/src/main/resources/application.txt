@@ -1,0 +1,17 @@
+server:
+    port: 8999
+
+db:
+    type: mysql
+
+spring:
+    datasource:
+        hikari:
+            jdbc-url: jdbc:mysql://localhost/boot?serverTimezone=UTC
+            password: 'system1234'
+            username: root
+            driver-class-name: 'com.mysql.cj.jdbc.Driver'
+        # url: jdbc:[Database]://localhost:3306/[Database스키마] 
+        # username: root 
+        # password: system1234
+        # driver-class-name: 

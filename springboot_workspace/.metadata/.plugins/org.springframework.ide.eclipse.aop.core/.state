@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aop-reference-model>
+<aop-project name="EX28_Security_taglibs"/>
+<aop-project name="EX23_TransactionTemplate"/>
+<aop-project name="EX24_Transaction_Propagation"/>
+<aop-project name="Ex08_Lombok"/>
+<aop-project name="Ex03_AnnotationDI"/>
+<aop-project name="EX23_TransactionManager"/>
+<aop-project name="Ex07_Form"/>
+<aop-project name="EX29_Security_Database"/>
+<aop-project name="Ex02_JavaCodeDI"/>
+<aop-project name="EX25_Security"/>
+<aop-project name="EX27_Security_StatusCheck"/>
+<aop-project name="demo"/>
+<aop-project name="Ex04_WebBasic"/>
+<aop-project name="Ex05_JspUse"/>
+<aop-project name="EX26_Security_LoginForm"/>
+<aop-project name="Ex06_Model"/>
+</aop-reference-model>
