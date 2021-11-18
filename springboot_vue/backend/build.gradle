@@ -22,11 +22,13 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+	testImplementation ('org.springframework.boot:spring-boot-starter-test'){
+		exclude group : 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
-	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 	// mysql
 	implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.27'

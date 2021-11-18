@@ -3,6 +3,21 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper>
+<mapper namespace="com.example.member.mapper.MemberMapper">
+    <resultMap id = "Member" type = "com.example.member.vo.MemberVo">
+        <result property = "id" column = "program_code" javaType = "java.lang.String" />
+        <result property = "pw" column = "pw" javaType = "java.lang.String" />
+        <result property = "name" column = "name" javaType = "java.lang.String" />
+        <result property = "nickname" column = "nickname" javaType = "java.lang.String" />
+        <result property = "address" column = "address" javaType = "java.lang.String" />
+        <result property = "email" column = "email" javaType = "java.lang.String" />
+        <result property = "registDate" column = "regist_date" javaType = "java.lang.String" />
+    </resultMap>
+
+    <insert id="insertMember" parameterType="com.example.member.vo.MemberVo">
+        INSERT INTO boot.member
+        (id, pw, nickname,name, address, email, regist_date)
+        VALUES(#{id}, #{pw}, #{nickname}, #{name}, #{address},#{email}, now() );
+    </insert>
 
 </mapper>
