@@ -12,6 +12,7 @@
         <result property = "address" column = "address" javaType = "java.lang.String" />
         <result property = "email" column = "email" javaType = "java.lang.String" />
         <result property = "registDate" column = "regist_date" javaType = "java.lang.String" />
+        <result property = "zipCode" column = "zipCode" javaType = "java.lang.String" />
     </resultMap>
 
     <insert id="insertMember" parameterType="com.example.member.vo.MemberVo">

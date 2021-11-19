@@ -11,4 +11,5 @@ public class MemberVo {
     private String address;
     private String email;
     private String registDate;
+    private String zipCode;
 }
