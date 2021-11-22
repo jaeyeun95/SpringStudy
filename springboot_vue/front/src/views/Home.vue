@@ -26,6 +26,12 @@
           </td>
         </tr>
         <tr>
+          <td>닉네임</td>
+          <td>
+              <input type="nickname" v-model="user.nickname" />
+          </td>
+        </tr>
+        <tr>
           <td>email</td>
           <td>
               <input type="text" v-model="user.email" />
@@ -57,15 +63,7 @@ export default {
   name: 'Home',
   data() {
     return {
-      user:{
-        // id:'',
-        // email: '',
-        // name: '',
-        // password: '',
-        // passwordConfirm: '',
-        // position: '',
-        // teamName: '',
-      },
+      user:{},
       // zip:'',
       addr1:'',
       addr2:'',
