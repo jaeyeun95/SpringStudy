@@ -2,14 +2,15 @@ package com.study.sonjava.mvc.controller;
 
 import java.util.List;
 
+import com.study.sonjava.configuration.http.BaseResponse;
+import com.study.sonjava.mvc.domain.Board;
+import com.study.sonjava.mvc.service.BoardService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.study.sonjava.mvc.domain.Board;
-import com.study.sonjava.mvc.service.BoardService;
 
 @RestController
 @RequestMapping("/board")
@@ -20,13 +21,13 @@ public class BoardController {
 	private BoardService boardService;
 	
 	@GetMapping
-	public List<Board> getList(){
-		return boardService.getList();
+	public BaseResponse<List<Board>> getList(){
+		return new BaseResponse<List<Board>>(boardService.getList());
 	}
 	
 	@GetMapping("/{boardSeq}")
-	public Board get(@PathVariable int boardSeq) {
-		return boardService.get(boardSeq);
+	public BaseResponse<Board> get(@PathVariable int boardSeq) {
+		return new BaseResponse<Board>(boardService.get(boardSeq));
 	}
 	
 	/**
@@ -34,9 +35,9 @@ public class BoardController {
 	 * @param board
 	 */
 	@GetMapping("/save")
-	public int save(Board parameter) {
+	public BaseResponse<Integer> save(Board parameter) {
 		boardService.save(parameter);
-		return	parameter.getBoardSeq();
+		return new BaseResponse<Integer>(parameter.getBoardSeq());
 	}
 	
 //	public void updates(Board board) {
@@ -44,12 +45,12 @@ public class BoardController {
 //	}
 	
 	@GetMapping("/delete/{boardSeq}")
-	public boolean delete(@PathVariable int boardSeq) {
+	public BaseResponse<Boolean> delete(@PathVariable int boardSeq) {
 		Board board = boardService.get(boardSeq);
 		if( board == null){
-			return false;
+			return new BaseResponse<Boolean>(false);
 		}
 		boardService.delete(boardSeq);
-		return true;
+		return new BaseResponse<Boolean>(true);
 	}
 }
