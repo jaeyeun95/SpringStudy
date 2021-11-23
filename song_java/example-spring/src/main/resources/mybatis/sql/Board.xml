@@ -38,5 +38,22 @@
 		DELETE FROM T_BOARD
 		WHERE BOARD_SEQ = #{boardSeq}
 	</delete>
+
+	<insert id="saveList" parameterType="map">
+		INSERT INTO T_BOARD(
+			TITLE,
+			CONTENTS,
+			REG_DATE
+		)
+		VALUES
+		<!-- boardList 는 map 에 담겨있는 key를 의미 -->
+		<foreach collection="boardList" item="board" separator=",">
+		(
+			#{board.title},
+			#{board.contents},
+			NOW()
+		)
+		</foreach>
+	</insert>
 	
 </mapper>
