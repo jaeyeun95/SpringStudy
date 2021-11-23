@@ -1,6 +1,5 @@
 package com.study.sonjava.configuration.exception;
 
-import com.study.sonjava.configuration.http.BaseResponse;
 import com.study.sonjava.configuration.http.BaseResponseCode;
 
 public abstract class AbstractBaseException extends RuntimeException {
@@ -22,7 +21,7 @@ public abstract class AbstractBaseException extends RuntimeException {
     }
 
     public Object[] getArgs(){
-        
+        return args;
     }
     
 }
