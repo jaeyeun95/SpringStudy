@@ -3,8 +3,13 @@ package com.study.sonjava.configuration.servlet.handler;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.study.sonjava.configuration.exception.BaseException;
+import com.study.sonjava.configuration.http.BaseResponseCode;
+import com.study.sonjava.framework.web.bind.annotation.RequestConfig;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -29,6 +34,18 @@ public class BaseHandlerInterceptor extends HandlerInterceptorAdapter {
             throws Exception {
         // return super.preHandle(request, response, handler);
         logger.info("preHandle requestURI : {} ", request.getRequestURI());
+        if (handler instanceof HandlerMethod) {
+            HandlerMethod handlerMethod = (HandlerMethod) handler;
+            logger.info("handlerMethod : {}", handlerMethod);
+            RequestConfig requestConfig = handlerMethod.getMethodAnnotation(RequestConfig.class);
+            if (requestConfig != null){
+                // 로그인 체크가 필수인경우
+                if (requestConfig.loginCheck() == false){
+                    System.out.println("############## 로그인이 필요한 경우");
+                    throw new BaseException(BaseResponseCode.LOGIN_REQUIRED, new String[] { request.getRequestURI() });
+                }
+            }
+        }
         return true;
     }
 

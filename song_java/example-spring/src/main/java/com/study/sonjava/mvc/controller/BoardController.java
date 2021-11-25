@@ -6,6 +6,7 @@ import java.util.List;
 import com.study.sonjava.configuration.exception.BaseException;
 import com.study.sonjava.configuration.http.BaseResponse;
 import com.study.sonjava.configuration.http.BaseResponseCode;
+import com.study.sonjava.framework.web.bind.annotation.RequestConfig;
 import com.study.sonjava.mvc.domain.Board;
 import com.study.sonjava.mvc.parameter.BoardParameter;
 import com.study.sonjava.mvc.parameter.BoardSearchParameter;
@@ -53,7 +54,9 @@ public class BoardController {
 	 * 등록/수정 처리
 	 * @param board
 	 */
-	@GetMapping("/save")
+	@PutMapping("/save")
+	@RequestConfig
+	// @GetMapping("/save")
 	public BaseResponse<Integer> save(Board parameter) {
 		// 제목 필수 체크
 		// if ( StringUtils.isEmpty(parameter.getTitle())){
