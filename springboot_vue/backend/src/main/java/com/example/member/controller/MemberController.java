@@ -1,5 +1,6 @@
 package com.example.member.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import com.example.member.service.MemberService;
@@ -42,6 +43,11 @@ public class MemberController {
         System.out.println("### CON ");
         Map<String, Object> map = mService.insertMember(vo);
         return map;
+    }
+
+    @RequestMapping("/list")
+    public List<MemberVo> getList(){
+        return mService.getlist();
     }
     
 }

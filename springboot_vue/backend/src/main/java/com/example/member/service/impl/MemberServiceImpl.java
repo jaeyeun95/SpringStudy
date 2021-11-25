@@ -1,6 +1,7 @@
 package com.example.member.service.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.example.member.mapper.MemberMapper;
@@ -28,6 +29,11 @@ public class MemberServiceImpl implements MemberService {
             map.put("result", "실패");
         }
         return map;
+    }
+
+    @Override
+    public List<MemberVo> getlist() {
+        return mapper.getList();
     }
 
 

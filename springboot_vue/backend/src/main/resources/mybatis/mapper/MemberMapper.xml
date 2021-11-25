@@ -21,4 +21,8 @@
         VALUES(#{id}, #{pw}, #{nickname}, #{name}, #{address},#{email}, now(), #{zipCode} );
     </insert>
 
+    <select id="getList" resultMap="Member">
+        select * from boot.member
+    </select>
+
 </mapper>

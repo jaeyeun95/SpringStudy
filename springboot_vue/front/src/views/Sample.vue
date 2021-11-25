@@ -44,7 +44,7 @@
         </table> -->
 
 
-        <h1>주소</h1>
+        <!-- <h1>주소</h1>
         <div class="container">
 			<div>
 				<label for="name">이름</label>
@@ -72,18 +72,31 @@
 			</div>
 			<div>
 				<label for="address">주소</label> <button @click="showApi">검색</button>
-                <div ref="embed"></div> <!-- api UI 나오는 공간, 나중엔 모달로 -->
+                <div ref="embed"></div> 
                 <span>우편주소 : <input type="text" v-model="user.zipCode"/></span> <br>
                 <span>기본주소 : <input type="text" v-model="addr1"/></span> <br>
 				<span>상세주소 : <input type="text" v-model="addr2"/> </span>
 			</div>
 			<button @click="insert">회원가입</button>
-        </div>
+        </div> -->
+
+        <h1>sample</h1>
+
     </div>
 </template>
 <script>
 export default {
     name:"Sample",
+    created() {
+        this.getList();
+    },
+    methods: {
+        getList(){
+            this.$axios.post('/member/list')
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
+        }
+    },
     
 }
 </script>
