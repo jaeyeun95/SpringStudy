@@ -20,9 +20,9 @@
 	
 	<insert id="save" parameterType="com.study.sonjava.mvc.domain.Board" keyProperty="boardSeq" useGeneratedKeys="true" >
 		INSERT INTO boot.t_board
-		( TITLE, CONTENTS, REG_DATE)
+		( TITLE, CONTENTS, REG_DATE, BOARD_TYPE)
 		VALUES(
-			#{title}, #{contents}, NOW()
+			#{title}, #{contents}, NOW(), #{ boardType }
 		)
 	</insert>
 	
