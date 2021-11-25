@@ -8,11 +8,11 @@ import com.study.sonjava.configuration.http.BaseResponse;
 import com.study.sonjava.configuration.http.BaseResponseCode;
 import com.study.sonjava.mvc.domain.Board;
 import com.study.sonjava.mvc.parameter.BoardParameter;
+import com.study.sonjava.mvc.parameter.BoardSearchParameter;
 import com.study.sonjava.mvc.service.BoardService;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -31,9 +31,13 @@ public class BoardController {
 	private BoardService boardService;
 	
 	@GetMapping
-	public BaseResponse<List<Board>> getList(){
-		return new BaseResponse<List<Board>>(boardService.getList());
+	public BaseResponse<List<Board>> getList(BoardSearchParameter parameter){
+		return new BaseResponse<List<Board>>(boardService.getList(parameter));
 	}
+	// @GetMapping("/list")
+	// public List<Board> getList2(){
+	// 	return boardService.getList();
+	// }
 	
 	@GetMapping("/{boardSeq}")
 	public BaseResponse<Board> get(@PathVariable int boardSeq) {

@@ -5,13 +5,15 @@ import java.util.Map;
 
 import com.study.sonjava.mvc.domain.Board;
 import com.study.sonjava.mvc.parameter.BoardParameter;
+import com.study.sonjava.mvc.parameter.BoardSearchParameter;
 
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BoardRepository {
 	
-	List<Board> getList();
+	// List<Board> getList();
+	List<Board> getList(BoardSearchParameter parameter);
 	
 	Board get(int boardSeq);
 	

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.study.sonjava.mvc.domain.Board;
 import com.study.sonjava.mvc.parameter.BoardParameter;
+import com.study.sonjava.mvc.parameter.BoardSearchParameter;
 import com.study.sonjava.mvc.repository.BoardRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,9 @@ public class BoardService {
 	@Autowired
 	private BoardRepository repository;
 	
-	public List<Board> getList(){
-		return repository.getList();
+	// public List<Board> getList(){
+	public List<Board> getList(BoardSearchParameter parameter){
+		return repository.getList(parameter);
 	}
 	
 	public Board get(int boardSeq) {
