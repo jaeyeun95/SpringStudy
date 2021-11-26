@@ -6,6 +6,8 @@ import java.util.List;
 import com.study.sonjava.configuration.exception.BaseException;
 import com.study.sonjava.configuration.http.BaseResponse;
 import com.study.sonjava.configuration.http.BaseResponseCode;
+import com.study.sonjava.framework.data.domain.MySQLPageRequest;
+import com.study.sonjava.framework.data.domain.PageRequestParameter;
 import com.study.sonjava.framework.web.bind.annotation.RequestConfig;
 import com.study.sonjava.mvc.domain.Board;
 import com.study.sonjava.mvc.parameter.BoardParameter;
@@ -31,15 +33,23 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 	
+	/**
+	 * 목록 리턴
+	 * @param parameter
+	 * @param pageable
+	 * @return
+	 */
 	@GetMapping
-	public BaseResponse<List<Board>> getList(BoardSearchParameter parameter){
-		return new BaseResponse<List<Board>>(boardService.getList(parameter));
+	public BaseResponse<List<Board>> getList(BoardSearchParameter parameter, MySQLPageRequest pageRequest){
+		log.info("pageRequest : {} ", pageRequest);
+		PageRequestParameter<BoardSearchParameter> pageRequestParameter = new PageRequestParameter<BoardSearchParameter>(pageRequest, parameter);
+		return new BaseResponse<List<Board>>(boardService.getList(pageRequestParameter));
 	}
 	// @GetMapping("/list")
 	// public List<Board> getList2(){
 	// 	return boardService.getList();
 	// }
-	
+
 	@GetMapping("/{boardSeq}")
 	public BaseResponse<Board> get(@PathVariable int boardSeq) {
 		Board board = boardService.get(boardSeq);
@@ -110,7 +120,8 @@ public class BoardController {
 			count++;
 			String title = RandomStringUtils.randomAlphabetic(10);
 			String contents = RandomStringUtils.randomAlphabetic(10);
-			list.add(new BoardParameter(title, contents));
+			String boardType = "FAQ";
+			list.add(new BoardParameter(title, contents,boardType));
 			if ( count >= 50){
 				break;
 			}

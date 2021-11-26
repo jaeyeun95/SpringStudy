@@ -3,6 +3,7 @@ package com.study.sonjava.mvc.repository;
 import java.util.List;
 import java.util.Map;
 
+import com.study.sonjava.framework.data.domain.PageRequestParameter;
 import com.study.sonjava.mvc.domain.Board;
 import com.study.sonjava.mvc.parameter.BoardParameter;
 import com.study.sonjava.mvc.parameter.BoardSearchParameter;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Repository;
 public interface BoardRepository {
 	
 	// List<Board> getList();
-	List<Board> getList(BoardSearchParameter parameter);
+	List<Board> getList(PageRequestParameter<BoardSearchParameter> pageRequestParameter);
 	
 	Board get(int boardSeq);
 	

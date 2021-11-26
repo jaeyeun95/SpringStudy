@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.study.sonjava.framework.data.domain.PageRequestParameter;
 import com.study.sonjava.mvc.domain.Board;
 import com.study.sonjava.mvc.parameter.BoardParameter;
 import com.study.sonjava.mvc.parameter.BoardSearchParameter;
@@ -23,8 +24,8 @@ public class BoardService {
 	private BoardRepository repository;
 	
 	// public List<Board> getList(){
-	public List<Board> getList(BoardSearchParameter parameter){
-		return repository.getList(parameter);
+	public List<Board> getList(PageRequestParameter<BoardSearchParameter> pageRequestParameter){
+		return repository.getList(pageRequestParameter);
 	}
 	
 	public Board get(int boardSeq) {
