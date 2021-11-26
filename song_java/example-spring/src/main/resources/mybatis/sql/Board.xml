@@ -4,10 +4,20 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace = "com.study.sonjava.mvc.repository.BoardRepository">
+
+	<!-- <resultMap type="com.study.sonjava.mvc.domain.Board" id="getResultMap">
+	</resultMap> -->
+
+	<resultMap type="com.study.sonjava.mvc.domain.Board" id="getResultMap">
+		<!-- <result column="BOARD_SEQ" property="boardSeq" typeHandler="com.study.sonjava.configuration.typehandler.StringValueBooleanTypeHandler" />
+		<result column="TITLE" property="title" typeHandler="com.study.sonjava.configuration.typehandler.StringValueBooleanTypeHandler" />
+		<result column="CONTENTS" property="contents" typeHandler="com.study.sonjava.configuration.typehandler.StringValueBooleanTypeHandler" /> -->
+		<result column="DEL_YN" property="delYn" typeHandler="com.study.sonjava.configuration.typehandler.StringValueBooleanTypeHandler" />
+	</resultMap>
 	
 	<!-- <select id="getList" parameterType="com.study.sonjava.mvc.domain.Board" resultType="com.study.sonjava.mvc.domain.Board"> -->
-	<select id="getList" parameterType="com.study.sonjava.framework.data.domain.PageRequestParameter" resultType="com.study.sonjava.mvc.domain.Board">
-		SELECT B.BOARD_SEQ, B.TITLE, B.CONTENTS, B.REG_DATE
+	<select id="getList" parameterType="com.study.sonjava.framework.data.domain.PageRequestParameter" resultMap="getResultMap">
+		SELECT B.BOARD_SEQ, B.TITLE, B.CONTENTS, B.REG_DATE, B.DEL_YN
 		FROM T_BOARD B
 		<!-- @를 사용하면 JAVA static method 접근이 가능 -->
 		<where>
@@ -37,9 +47,9 @@
 	
 	<insert id="save" parameterType="com.study.sonjava.mvc.domain.Board" keyProperty="boardSeq" useGeneratedKeys="true" >
 		INSERT INTO boot.t_board
-		( TITLE, CONTENTS, REG_DATE, BOARD_TYPE)
+		( TITLE, CONTENTS, REG_DATE, BOARD_TYPE, DEL_YN)
 		VALUES(
-			#{title}, #{contents}, NOW(), #{ boardType }
+			#{title}, #{contents}, NOW(), #{ boardType }, #{delYn, typeHandler=com.study.sonjava.configuration.typehandler.StringValueBooleanTypeHandler}
 		)
 	</insert>
 	

@@ -9,6 +9,7 @@ public class BoardParameter {
     private String title;
     private String contents;
     private String boardType; 
+    private boolean delYn;
 
     public BoardParameter(){}   // 기본생성자
 
