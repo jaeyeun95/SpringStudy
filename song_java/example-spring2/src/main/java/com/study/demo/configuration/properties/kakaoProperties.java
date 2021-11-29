@@ -6,9 +6,10 @@ import lombok.Data;
 
 @Data
 @ConfigurationProperties
-public class kakaoProperties {
-    
+public class KakaoProperties {
+
     public String restapi;
-    public String JavaScript;
+    public String javaScript;
     public String clientSecret;
+
 }

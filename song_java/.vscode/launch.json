@@ -9,6 +9,25 @@
             "mainClass": "com.study.sonjava.ExampleSpringApplication",
             "projectName": "example-spring",
             "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-ExampleSpring2Application",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.study.demo.ExampleSpring2Application",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-ExampleSpring2Application<example-spring2>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.study.demo.ExampleSpring2Application",
+            "projectName": "example-spring2",
+            "args": ""
         }
     ]
 }
