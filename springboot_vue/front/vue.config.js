@@ -10,7 +10,7 @@ module.exports = {
 
   devServer: {
     proxy: {
-      "/member": {
+      "/api": {
         target: "http://localhost:9999",
         ws: true,
         changeOrigin: true, // Cors 에러를 막기위한 옵션

@@ -53,6 +53,7 @@
         </tr>
       </table>
 			<button @click="insert">회원가입</button>
+      <button @click="kakoAPI">카카오 api 테스트</button>
 	</div>
 </template>
 
@@ -79,7 +80,7 @@ export default {
       // console.log('user ::', this.user, headers)
       this.user.address = this.addr1 + this.addr2;
       console.log('user ::', this.user)
-      this.$axios.post('/member/insert',this.user)
+      this.$axios.post('/api/insert',this.user)
       .then(res => console.log(res))
       .catch(err => console.log(err))
 
@@ -118,7 +119,12 @@ export default {
         } 
         }).embed(this.$refs.embed)
 
-    }
+    },
+    kakoAPI(){
+      this.$axios.get('/api/kakao/test')
+      .then(res => console.log(res))
+      .catch(err => console.log(err))
+    },
   },
 }
 </script>
