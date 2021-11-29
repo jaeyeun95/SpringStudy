@@ -23,6 +23,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	// implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	implementation 'org.springframework.boot:spring-boot-starter-web-services'
+
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -36,6 +39,25 @@ dependencies {
 
 	// 카카오 주소 API 사용하기 위한 DI
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-webflux', version: '2.3.12.RELEASE'
+
+	// jackson-databind(사용)
+	implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.10.0'
+	// jackson-core
+	implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.12.3'
+
+
+	// json-simple
+	implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+	// gson
+	implementation group: 'com.google.code.gson', name: 'gson', version: '2.8.5'
+
+
+
+
+	// http
+	implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.2'
+	// http core
+	implementation group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.13'
 
 
 }
