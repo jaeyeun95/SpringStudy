@@ -17,29 +17,42 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class KakaoController {
     
-    private final KakaoProperties properties;
+    // private final KakaoProperties properties;
+    private final WebClient properties;
 
-    @GetMapping("/test")
-    @ResponseBody
-    public KakaoProperties test(){
-        System.out.println("################ 카카오 테스트");
-        return properties;
-    }
+    // @GetMapping("/test")
+    // @ResponseBody
+    // public KakaoProperties test(){
+    //     System.out.println("################ 카카오 테스트");
+    //     return properties;
+    // }
 
     @GetMapping("/search")
     public String search(@RequestParam String query){
-        Mono<String> mono = WebClient.builder().baseUrl("https://dapi.kakao.com")
-        .build().get()
+        Mono<String> mono = properties.get()
         .uri(builder -> builder.path("/v2/local/search/address.json") // json 형식으로
         // https://developers.kakao.com/docs/latest/ko/local/dev-guide
         .queryParam("query", query) // 앞에 "query"는 카카오 API 에서 필수로 들어가야 하는 파라미터 이고 뒤에 있는 query는 파라미터 query
         .build()
         ) 
-        .header("Authorization", "KakaoAK " + properties.getRestapi()) // header 설정 , 32번째 줄에 가보면 헤더랑 필요한 파라미터들이 나와있음
         .exchangeToMono(response -> {
             return response.bodyToMono(String.class);
         });
         return mono.block();
         
+    }
+
+    @GetMapping("coord2regioncode")
+    public String coord2regioncode(@RequestParam String x, @RequestParam String y){
+        Mono<String> mono = properties.get()
+        .uri(builder -> builder.path("/v2/local/search/address.json") // json 형식으로
+        .queryParam("x", x)
+        .queryParam("y", y)
+        .build()
+        )
+        .exchangeToMono(response -> {
+            return response.bodyToMono(String.class);
+        });
+        return mono.block();
     }
 }
