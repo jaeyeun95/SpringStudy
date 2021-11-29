@@ -13,11 +13,12 @@
 		<result column="TITLE" property="title" typeHandler="com.study.sonjava.configuration.typehandler.StringValueBooleanTypeHandler" />
 		<result column="CONTENTS" property="contents" typeHandler="com.study.sonjava.configuration.typehandler.StringValueBooleanTypeHandler" /> -->
 		<result column="DEL_YN" property="delYn" typeHandler="com.study.sonjava.configuration.typehandler.StringValueBooleanTypeHandler" />
+		<result column="BOARD_TYPE" property="boardType" javaType="com.study.sonjava.mvc.domain.BoardType" />
 	</resultMap>
 	
 	<!-- <select id="getList" parameterType="com.study.sonjava.mvc.domain.Board" resultType="com.study.sonjava.mvc.domain.Board"> -->
 	<select id="getList" parameterType="com.study.sonjava.framework.data.domain.PageRequestParameter" resultMap="getResultMap">
-		SELECT B.BOARD_SEQ, B.TITLE, B.CONTENTS, B.REG_DATE, B.DEL_YN
+		SELECT B.BOARD_SEQ, B.TITLE, B.CONTENTS, B.REG_DATE, B.DEL_YN, B.BOARD_TYPE
 		FROM T_BOARD B
 		<!-- @를 사용하면 JAVA static method 접근이 가능 -->
 		<where>
