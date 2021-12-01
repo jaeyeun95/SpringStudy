@@ -11,6 +11,7 @@ import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.JsonObject;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -86,14 +87,15 @@ public class RestAPI {
 
     // @GetMapping("/GetkobisData1")
     @RequestMapping(value = "/GetkobisData1", method=RequestMethod.GET)
-    public String useHttp(@RequestParam Map<String, String> paramapMap) throws MalformedURLException{
-    // public Map<String,Object> useHttp(@RequestParam Map<String, String> paramapMap) throws MalformedURLException{
+    // public JsonObject useHttp(@RequestParam Map<String, String> paramapMap) throws MalformedURLException{
+    // public String useHttp(@RequestParam Map<String, String> paramapMap) throws MalformedURLException{
+    public Map<String,Object> useHttp(@RequestParam Map<String, String> paramapMap) throws MalformedURLException{
     // public void useHttp(@RequestParam Map<String, String> paramapMap) throws MalformedURLException{
 
         System.out.println("######################### " + paramapMap);
 
         Map<String, Object> result = new HashMap<>();
-        String movieData = "";
+        // String movieData = "";
         
         try {
             // URL url = new URL("http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json");
@@ -137,9 +139,9 @@ public class RestAPI {
             System.out.println("###### CON 결과 :  " + con.getResponseCode());
 
             ObjectMapper objMapper = new ObjectMapper();
-            movieData = objMapper.writeValueAsString(response);
+            // movieData = objMapper.writeValueAsString(response);
 
-            // result.put("result", response);
+            result.put("result", response);
 
         } catch (Exception e) {
             log.error("### GetkobisData1 error ####", e.toString());
@@ -148,8 +150,8 @@ public class RestAPI {
 
 
 
-        // return result;
-        return movieData;
+        return result;
+        // return movieData;
     }
     
 }
