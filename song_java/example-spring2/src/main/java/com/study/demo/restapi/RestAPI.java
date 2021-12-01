@@ -1,5 +1,7 @@
 package com.study.demo.restapi;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -84,17 +86,20 @@ public class RestAPI {
 
     // @GetMapping("/GetkobisData1")
     @RequestMapping(value = "/GetkobisData1", method=RequestMethod.GET)
-    public Map<String,Object> useHttp(@RequestParam Map<String, String> paramapMap) throws MalformedURLException{
+    public String useHttp(@RequestParam Map<String, String> paramapMap) throws MalformedURLException{
+    // public Map<String,Object> useHttp(@RequestParam Map<String, String> paramapMap) throws MalformedURLException{
     // public void useHttp(@RequestParam Map<String, String> paramapMap) throws MalformedURLException{
 
         System.out.println("######################### " + paramapMap);
 
         Map<String, Object> result = new HashMap<>();
+        String movieData = "";
         
         try {
             // URL url = new URL("http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json");
             // HttpUrlConnection con = url.openConnection();
-            URL url = new URL("http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json");
+            String APIURL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json"; 
+            URL url = new URL(APIURL+"?key="+ paramapMap.get("key").toString() +"&movieCd=" + paramapMap.get("movieCd").toString());
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
             // 서버에 연결되는 Timeout 시간 설정
             con.setConnectTimeout(5000);
@@ -103,7 +108,7 @@ public class RestAPI {
             // key 값 설정
             // con.addRequestProperty("x-api-key", Res);
 
-            con.setRequestMethod("POST");
+            con.setRequestMethod("GET");
 
             // json으로 message를 전달하고자 할 때
             con.setRequestProperty("Content-Type", "application/json");
@@ -112,18 +117,29 @@ public class RestAPI {
             con.setUseCaches(false);
             con.setDefaultUseCaches(false);
 
-            OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
-            wr.write(paramapMap.get("key").toString());
-            wr.write(paramapMap.get("movieCd").toString());
-            wr.flush();
-            wr.close();
+            // OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
+            // wr.write(paramapMap.get("key").toString());
+            // wr.write(paramapMap.get("movieCd").toString());
+            // wr.flush();
+            // wr.close();
+
+            // 응답(Response) 구조 작성
+            // - Stream -> JSONObject
+            BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+            String readline = null;
+            StringBuffer response = new StringBuffer();
+            while( (readline = br.readLine()) != null){
+                response.append(readline);
+            }
+
 
             System.out.println("##### result " + con.toString());
+            System.out.println("###### CON 결과 :  " + con.getResponseCode());
 
-            // ObjectMapper objMapper = new ObjectMapper();
-            // objMapper.writeValueAsString(con);
+            ObjectMapper objMapper = new ObjectMapper();
+            movieData = objMapper.writeValueAsString(response);
 
-            result.put("result", con);
+            // result.put("result", response);
 
         } catch (Exception e) {
             log.error("### GetkobisData1 error ####", e.toString());
@@ -132,7 +148,8 @@ public class RestAPI {
 
 
 
-        return result;
+        // return result;
+        return movieData;
     }
     
 }
