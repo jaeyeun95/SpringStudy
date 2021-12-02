@@ -1,6 +1,7 @@
 package com.study.demo.restapi;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -11,7 +12,7 @@ import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.JsonObject;
+import com.study.demo.repository.Sample;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -19,6 +20,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,6 +36,7 @@ import lombok.extern.slf4j.Slf4j;
 
 
 @RestController
+@RequestMapping("/api")
 @Slf4j
 public class RestAPI {
 
@@ -152,6 +156,83 @@ public class RestAPI {
 
         return result;
         // return movieData;
+    }
+
+    // https://jsonplaceholder.typicode.com/guide/ -> post 테스트
+    @PostMapping("/getJson")
+    public Map getJson(@RequestParam Map<String,Object> paramapMap) throws Exception{
+    // public Map getJson(@RequestBody Sample sample) throws Exception{
+        System.out.println("###### GETJSON #####");
+        Map<String, Object> map = new HashMap<>();
+        // JsonObject resultJson = new JsonObject();
+
+        System.out.println("##### paramapMap ##### : " + paramapMap);
+
+        try {
+            
+            String jsonURL= "https://jsonplaceholder.typicode.com/posts";
+            URL url = new URL(jsonURL);
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+
+            con.setConnectTimeout(5000);
+            con.setReadTimeout(5000);
+            con.setDoInput(true);
+            con.setDoOutput(true); // POST 데이터를 OutputStream 으로 넘겨 주겠다는 설정
+            con.setUseCaches(false);
+            con.setDefaultUseCaches(false);
+    
+            con.setRequestMethod("POST");
+            con.setRequestProperty("Content-type", "application/json;");
+
+            System.out.println("##############2 22222222222222222222");
+
+            OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
+                wr.write(paramapMap.get("body").toString());
+                wr.write(paramapMap.get("title").toString());
+                wr.write(String.valueOf(paramapMap.get("userid")));
+                // wr.write(sample.getBody().toString());
+                // wr.write(sample.getTitle().toString());
+                // wr.write(String.valueOf(sample.getUserid()));
+                wr.flush();
+                wr.close();
+            
+
+            System.out.println("################## 3333" + con.getInputStream().toString());
+            // 결과 담기
+            BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+
+
+            // 결과 담을 StringBuilder
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while((line = br.readLine()) != null) {
+                sb.append(line).append("\n");
+            }
+            System.out.println("#### BR #### " + br.toString());
+            br.close();
+
+            ObjectMapper mapper = new ObjectMapper();
+
+            System.out.println("#### sb ###" + sb.toString());
+
+            map = mapper.readValue(sb.toString(), Map.class);
+
+            // String result = br.readLine();
+            // resultJson = JSONParse
+            
+            // map.put("result", objout);
+            
+            System.out.println("### RESULT #### " + mapper.readValue(sb.toString(), Map.class));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+
+
+
+        // return new JsonObject();
+        return map;
     }
     
 }
