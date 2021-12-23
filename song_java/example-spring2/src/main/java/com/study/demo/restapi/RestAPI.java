@@ -12,7 +12,6 @@ import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.study.demo.repository.Sample;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -21,7 +20,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,6 +29,7 @@ import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
+import org.springframework.ws.transport.http.HttpUrlConnection;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -72,6 +71,7 @@ public class RestAPI {
             //데이터를 제대로 전달 받았는지 확인 string형태로 파싱해줌
             ObjectMapper mapper = new ObjectMapper();
             jsonInString = mapper.writeValueAsString(resultMap.getBody());
+            System.out.println("####### "+ resultMap.getBody());
  
         } catch (HttpClientErrorException | HttpServerErrorException e) {
             result.put("statusCode", e.getRawStatusCode());
@@ -123,27 +123,22 @@ public class RestAPI {
             con.setUseCaches(false);
             con.setDefaultUseCaches(false);
 
-            // OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
-            // wr.write(paramapMap.get("key").toString());
-            // wr.write(paramapMap.get("movieCd").toString());
-            // wr.flush();
-            // wr.close();
-
             // 응답(Response) 구조 작성
             // - Stream -> JSONObject
             BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
             String readline = null;
             StringBuffer response = new StringBuffer();
             while( (readline = br.readLine()) != null){
-                response.append(readline);
+                response.append(readline).append("/n");
             }
-
 
             System.out.println("##### result " + con.toString());
             System.out.println("###### CON 결과 :  " + con.getResponseCode());
 
             ObjectMapper objMapper = new ObjectMapper();
             // movieData = objMapper.writeValueAsString(response);
+
+            System.out.println("###########  " + response);
 
             result.put("result", response);
 
@@ -233,6 +228,51 @@ public class RestAPI {
 
         // return new JsonObject();
         return map;
+    }
+
+    // 공통코드 조회
+    @RequestMapping("/code")
+    public Map<String, Object> commonCode(@RequestParam Map<String,Object> paramMap){
+    // public Map<String, Object> commonCode(@RequestParam Map<String,Object> paramMap){
+        Map<String, Object> result = new HashMap<>();
+
+        try {
+            String codeUrl = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/code/searchCodeList.json";
+            URL url = new URL(codeUrl + "?key=" + paramMap.get("key").toString() + "&comCode=" + paramMap.get("comCode").toString());
+            HttpURLConnection con = (HttpURLConnection)url.openConnection();
+
+            con.setConnectTimeout(5000);
+            con.setReadTimeout(5000);
+
+            con.setRequestMethod("GET");
+
+            // json으로 message를 전달하고자 할 때
+            con.setRequestProperty("Content-Type", "application/json");
+            con.setDoInput(true);
+            con.setDoOutput(true); // POST 데이터를 OutputStream 으로 넘겨 주겠다는 설정
+            con.setUseCaches(false);
+            con.setDefaultUseCaches(false);
+
+            // System.out.println("#### con input ##### :   " + con.getInputStream());
+            // System.out.println("#### con output ##### :   " + con.getOutputStream());
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+            String readline = null;
+            StringBuffer response = new StringBuffer();
+            while( (readline = br.readLine()) != null){
+                response.append(readline).append("\n");
+            }
+
+            result.put("result", response);
+
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+
+
+        return result;
     }
     
 }
