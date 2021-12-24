@@ -263,8 +263,15 @@ public class RestAPI {
                 response.append(readline).append("\n");
             }
 
+            System.out.println("#### response #### " + response);
+
             result.put("result", response);
 
+            ObjectMapper obj = new ObjectMapper();
+    
+            String test = obj.writeValueAsString(response);
+
+            System.out.println(" ### TEST ### " + test);
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -272,7 +279,41 @@ public class RestAPI {
         }
 
 
+        System.out.println("##### map ##### " + result);
+
+
         return result;
     }
     
+    // 영화인목록 조회
+    @RequestMapping("/people")
+    public String getPeopleList(@RequestParam String data) throws Exception{
+
+        String URL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/people/searchPeopleList.json";
+        URL url = new URL(data + "?key=" + data);
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        StringBuilder sb = new StringBuilder();
+        try {
+
+            // header 설정
+            con.setConnectTimeout(5000);
+            con.setReadTimeout(5000);
+
+            con.setRequestMethod("GET");
+            con.setDoInput(true);
+            con.setDoOutput(true);
+            con.setRequestProperty("Content-Type", "application/json");
+
+            
+
+
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        return "";
+    }
+
 }
