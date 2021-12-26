@@ -287,10 +287,14 @@ public class RestAPI {
     
     // 영화인목록 조회
     @RequestMapping("/people")
-    public String getPeopleList(@RequestParam String data) throws Exception{
+    public String getPeopleList(@RequestParam String key) throws Exception{
 
-        String URL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/people/searchPeopleList.json";
-        URL url = new URL(data + "?key=" + data);
+        System.out.println("### PEOPLE API");
+
+        System.out.println("### key : " + key);
+
+        String pepleURL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/people/searchPeopleList.json";
+        URL url = new URL(pepleURL + "?key=" + key);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         StringBuilder sb = new StringBuilder();
         try {
@@ -304,16 +308,65 @@ public class RestAPI {
             con.setDoOutput(true);
             con.setRequestProperty("Content-Type", "application/json");
 
-            
+            BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+            String readline = null;
 
+            while( (readline = br.readLine()) != null){
+                sb.append(readline).append("\n");
+            }
 
             
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+        System.out.println("#### 영화인 목록 ### " + sb.toString());
 
-        return "";
+
+        return sb.toString();
     }
+    
+    @RequestMapping("/people2")
+    // public String getPeopleList2(@RequestParam String key) throws Exception{
+    public Map<String, String> getPeopleList2(@RequestParam String key) throws Exception{
 
+        System.out.println("### PEOPLE API");
+
+        System.out.println("### key : " + key);
+
+        String pepleURL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/people/searchPeopleList.json";
+        URL url = new URL(pepleURL + "?key=" + key);
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        StringBuilder sb = new StringBuilder();
+        Map<String, String> result = new HashMap<>();
+        try {
+
+            // header 설정
+            con.setConnectTimeout(5000);
+            con.setReadTimeout(5000);
+
+            con.setRequestMethod("GET");
+            con.setDoInput(true);
+            con.setDoOutput(true);
+            con.setRequestProperty("Content-Type", "application/json");
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+            String readline = null;
+
+            while( (readline = br.readLine()) != null){
+                sb.append(readline).append("\n");
+            }
+
+            result.put("result", sb.toString());
+
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("#### 영화인 목록 ### " + sb.toString());
+
+
+        return result;
+    }
 }
