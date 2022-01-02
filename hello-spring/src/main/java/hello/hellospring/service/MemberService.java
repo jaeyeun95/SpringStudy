@@ -5,11 +5,13 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import hello.hellospring.domain.Member;
 import hello.hellospring.repository.MemberRepository;
 
 // @Service
+@Transactional
 public class MemberService {
 
     private final MemberRepository memberRepository;
@@ -29,11 +31,20 @@ public class MemberService {
         //     throw new IllegalStateException("이미 존재하는 회원입니다.");
         // });
 
-        // 위의 내용을 줄여서
-        validateDuplicatedMember(member);   // 중복 회원 검증
+        
+        long start = System.currentTimeMillis();
+        
+        try {
+            // 위의 내용을 줄여서
+            validateDuplicatedMember(member);   // 중복 회원 검증
+            memberRepository.save(member);
+            return member.getId();
+        } finally {
+            long finish = System.currentTimeMillis();
+            long timeMs = finish - start;
+            System.out.println("join = " + timeMs + "ms");
+        }
 
-        memberRepository.save(member);
-        return member.getId();
     }
 
     private void validateDuplicatedMember(Member member) {
@@ -47,7 +58,16 @@ public class MemberService {
      * 전체 회원 조회
      */
     public List<Member> findMembers(){
-        return memberRepository.findAll();
+
+        long start = System.currentTimeMillis();
+
+        try {
+            return memberRepository.findAll();
+        } finally {
+            long finish = System.currentTimeMillis();
+            long timeMs = finish - start;
+            System.out.println("findMembers = " + timeMs + "ms");
+        }
     }
 
     public Optional<Member> findOne(Long memberId){
