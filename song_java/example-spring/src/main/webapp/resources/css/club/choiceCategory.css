@@ -1,0 +1,28 @@
+@charset "UTF-8";
+
+body {
+	margin: 0 auto;
+	width: 600px;
+}
+a {
+	cursor: pointer;
+}
+
+ul {
+	list-style: none;
+}
+
+li {
+	float:left;
+}
+
+img {
+	 width: 160px;
+	 height: 120px;
+	display: block;
+}
+
+label {
+	margin: 0 auto;
+	display: block;
+}

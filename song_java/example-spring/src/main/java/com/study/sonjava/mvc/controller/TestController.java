@@ -11,4 +11,9 @@ public class TestController {
         return "page";
     }
 
+    @RequestMapping("/page2")
+    public String toPage2() {
+        return "page2";
+    }
+
 }
