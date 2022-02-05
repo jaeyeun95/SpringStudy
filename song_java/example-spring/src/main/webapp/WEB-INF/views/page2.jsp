@@ -17,7 +17,12 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
   </head>
 
   <body>
-    <form action="./clubCreate" method="POST" enctype="multipart/form-data">
+    <form
+      action="/clubCreate"
+      method="POST"
+      enctype="multipart/form-data"
+      onsubmit="jbSubmit()"
+    >
       <div class="coverMain">
         <c:url var="choicePhoto" value="resources/img/club/insert/download" />
         <div class="mainName">
@@ -62,6 +67,8 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
                     id="addPhoto"
                     accept="image/gif, imeage/jpeg, image/png"
                     style="display: none"
+                    name="upfile"
+                    onchange="changeFile()"
                   />
                 </label>
               </li>
@@ -73,8 +80,9 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
                     ><img
                       class="pictures"
                       src="${choicePhoto}1-1.jpg"
-                      onclick="imgChange(this.src)"
-                  /></a>
+                      onclick="imgChange(this.src, event)"
+                    />
+                  </a>
                 </li>
                 <li>
                   <a
@@ -84,7 +92,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
                       onclick="imgChange(this.src)"
                   /></a>
                 </li>
-                <li>
+                <!-- <li>
                   <a
                     ><img
                       class="pictures"
@@ -123,307 +131,10 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
                       src="${choicePhoto}1-7.jpg"
                       onclick="imgChange(this.src)"
                   /></a>
-                </li>
+                </li> -->
               </ul>
-            </div>
-            <div id="list2" style="display: none">
-              <ul class="con">
-                <li>
-                  <a
-                    ><img
-                      class="pictures"
-                      src="${choicePhoto}2-1.jpg"
-                      onclick="imgChange(this.src)"
-                  /></a>
-                </li>
-                <li>
-                  <a
-                    ><img
-                      class="pictures"
-                      src="${choicePhoto}2-2.jpg"
-                      onclick="imgChange(this.src)"
-                  /></a>
-                </li>
-                <li>
-                  <a
-                    ><img
-                      class="pictures"
-                      src="${choicePhoto}2-3.jpg"
-                      onclick="imgChange(this.src)"
-                  /></a>
-                </li>
-                <li>
-                  <a
-                    ><img
-                      class="pictures"
-                      src="${choicePhoto}2-4.jpg"
-                      onclick="imgChange(this.src)"
-                  /></a>
-                </li>
-                <li>
-                  <a
-                    ><img
-                      class="pictures"
-                      src="${choicePhoto}2-5.jpg"
-                      onclick="imgChange(this.src)"
-                  /></a>
-                </li>
-                <li>
-                  <a
-                    ><img
-                      class="pictures"
-                      src="${choicePhoto}2-6.jpg"
-                      onclick="imgChange(this.src)"
-                  /></a>
-                </li>
-                <li>
-                  <a
-                    ><img
-                      class="pictures"
-                      src="${choicePhoto}2-7.jpg"
-                      onclick="imgChange(this.src)"
-                  /></a>
-                </li>
-              </ul>
-              <div id="list3" style="display: none">
-                <ul class="con">
-                  <li>
-                    <a
-                      ><img
-                        class="pictures"
-                        src="${choicePhoto}3-1.jpg"
-                        onclick="imgChange(this.src)"
-                    /></a>
-                  </li>
-                  <li>
-                    <a
-                      ><img
-                        class="pictures"
-                        src="${choicePhoto}3-2.jpg"
-                        onclick="imgChange(this.src)"
-                    /></a>
-                  </li>
-                  <li>
-                    <a
-                      ><img
-                        class="pictures"
-                        src="${choicePhoto}3-3.jpg"
-                        onclick="imgChange(this.src)"
-                    /></a>
-                  </li>
-                  <li>
-                    <a
-                      ><img
-                        class="pictures"
-                        src="${choicePhoto}3-4.jpg"
-                        onclick="imgChange(this.src)"
-                    /></a>
-                  </li>
-                  <li>
-                    <a
-                      ><img
-                        class="pictures"
-                        src="${choicePhoto}3-5.jpg"
-                        onclick="imgChange(this.src)"
-                    /></a>
-                  </li>
-                  <li>
-                    <a
-                      ><img
-                        class="pictures"
-                        src="${choicePhoto}3-6.jpg"
-                        onclick="imgChange(this.src)"
-                    /></a>
-                  </li>
-                  <li>
-                    <a
-                      ><img
-                        class="pictures"
-                        src="${choicePhoto}3-7.jpg"
-                        onclick="imgChange(this.src)"
-                    /></a>
-                  </li>
-                </ul>
-              </div>
-              <div id="list4" style="display: none">
-                <ul class="con">
-                  <li>
-                    <a
-                      ><img
-                        class="pictures"
-                        src="${choicePhoto}4-1.jpg"
-                        onclick="imgChange(this.src)"
-                    /></a>
-                  </li>
-                  <li>
-                    <a
-                      ><img
-                        class="pictures"
-                        src="${choicePhoto}4-2.jpg"
-                        onclick="imgChange(this.src)"
-                    /></a>
-                  </li>
-                  <li>
-                    <a
-                      ><img
-                        class="pictures"
-                        src="${choicePhoto}4-3.jpg"
-                        onclick="imgChange(this.src)"
-                    /></a>
-                  </li>
-                  <li>
-                    <a
-                      ><img
-                        class="pictures"
-                        src="${choicePhoto}4-4.jpg"
-                        onclick="imgChange(this.src)"
-                    /></a>
-                  </li>
-                  <li>
-                    <a
-                      ><img
-                        class="pictures"
-                        src="${choicePhoto}4-5.jpg"
-                        onclick="imgChange(this.src)"
-                    /></a>
-                  </li>
-                  <li>
-                    <a
-                      ><img
-                        class="pictures"
-                        src="${choicePhoto}4-6.jpg"
-                        onclick="imgChange(this.src)"
-                    /></a>
-                  </li>
-                  <li>
-                    <a
-                      ><img
-                        class="pictures"
-                        src="${choicePhoto}4-7.jpg"
-                        onclick="imgChange(this.src)"
-                    /></a>
-                  </li>
-                </ul>
-              </div>
-              <div id="list5" style="display: none">
-                <ul class="con">
-                  <li>
-                    <a
-                      ><img
-                        class="pictures"
-                        src="${choicePhoto}5-1.jpg"
-                        onclick="imgChange(this.src)"
-                    /></a>
-                  </li>
-                  <li>
-                    <a
-                      ><img
-                        class="pictures"
-                        src="${choicePhoto}5-2.jpg"
-                        onclick="imgChange(this.src)"
-                    /></a>
-                  </li>
-                  <li>
-                    <a
-                      ><img
-                        class="pictures"
-                        src="${choicePhoto}5-3.jpg"
-                        onclick="imgChange(this.src)"
-                    /></a>
-                  </li>
-                  <li>
-                    <a
-                      ><img
-                        class="pictures"
-                        src="${choicePhoto}5-4.jpg"
-                        onclick="imgChange(this.src)"
-                    /></a>
-                  </li>
-                  <li>
-                    <a
-                      ><img
-                        class="pictures"
-                        src="${choicePhoto}5-5.jpg"
-                        onclick="imgChange(this.src)"
-                    /></a>
-                  </li>
-                  <li>
-                    <a
-                      ><img
-                        class="pictures"
-                        src="${choicePhoto}5-6.jpg"
-                        onclick="imgChange(this.src)"
-                    /></a>
-                  </li>
-                  <li>
-                    <a
-                      ><img
-                        class="pictures"
-                        src="${choicePhoto}5-7.jpg"
-                        onclick="imgChange(this.src)"
-                    /></a>
-                  </li>
-                </ul>
-              </div>
-              <div id="list6" style="display: none">
-                <ul class="con">
-                  <li>
-                    <a
-                      ><img
-                        class="pictures"
-                        src="${choicePhoto}6-1.jpg"
-                        onclick="imgChange(this.src)"
-                    /></a>
-                  </li>
-                  <li>
-                    <a
-                      ><img
-                        class="pictures"
-                        src="${choicePhoto}6-2.jpg"
-                        onclick="imgChange(this.src)"
-                    /></a>
-                  </li>
-                  <li>
-                    <a
-                      ><img
-                        class="pictures"
-                        src="${choicePhoto}6-3.jpg"
-                        onclick="imgChange(this.src)"
-                    /></a>
-                  </li>
-                  <li>
-                    <a
-                      ><img
-                        class="pictures"
-                        src="${choicePhoto}6-4.jpg"
-                        onclick="imgChange(this.src)"
-                    /></a>
-                  </li>
-                  <li>
-                    <a
-                      ><img
-                        class="pictures"
-                        src="${choicePhoto}6-5.jpg"
-                        onclick="imgChange(this.src)"
-                    /></a>
-                  </li>
-                  <li>
-                    <a
-                      ><img
-                        class="pictures"
-                        src="${choicePhoto}6-6.jpg"
-                        onclick="imgChange(this.src)"
-                    /></a>
-                  </li>
-                  <li>
-                    <a
-                      ><img
-                        class="pictures"
-                        src="${choicePhoto}6-7.jpg"
-                        onclick="imgChange(this.src)"
-                    /></a>
-                  </li>
-                </ul>
+              <div>
+                <button type="button" onclick="test(event)">테스트</button>
               </div>
             </div>
           </div>
@@ -431,46 +142,13 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
         <div class="makeArea">
           <p class="makeText">모임이름과 사진은 개설 후에도 변경할 수 있어요</p>
         </div>
-        <!-- <div id="target">
-          target
-          <input type="text" id="bbb" value="1234" />
-        </div>
-        <button type="button" onclick="test()">Obserber</button> -->
         <script>
-          // 감지할 타겟
-          //   var target = document.getElementById("abc");
-
-          //   console.log("target :", target);
-
-          //   // 변경을 감지했을 때 실행할 부분
-          //   var observer = new MutationObserver((mutations) => {
-          //     //   alert('값변경')
-          //     mutations.forEach((item) => {
-          //       console.log("item :", item);
-          //     });
-          //     let pageNo = Number(currentPage.innerText);
-          //     console.log("페이지 변경", pageNo);
-
-          //     showList();
-          //     // hideList(pageNo);
-          //   });
-
-          //   // 감지 설정
-          //   var config = {
-          //     childList: true, // 타겟의 하위 요소 추가 및 제거 감지
-          //     attributes: false, // 타켓의 속성 변경를 감지
-          //     characterData: false, // 타겟의 데이터 변경 감지
-          //     subtree: false, // 타겟의 자식 노드 아래로도 모두 감지
-          //     attributeOldValue: false, // 타겟의 속성 변경 전 속성 기록
-          //     characterDataOldValue: false, // 타겟의 데이터 변경 전 데이터 기록
-          //   };
-
-          //   // 감지 시작
-          //   observer.observe(target, config);
-
-          //   // 감지 종료
-          //   observer.disconnect();
-
+          function test(e) {
+            let selectImage = document.getElementById("photo").src;
+            // let file = new File(selectImage);
+            // file.src = selectImage;
+            console.log(" ### ", selectImage);
+          }
           let firstPage = 1;
           let lastPage = 6;
           //   let currentPage = document.getElementById("abc");
@@ -528,8 +206,23 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
             }
           });
 
-          function imgChange(src) {
+          function jbSubmit() {
+            console.log("서브밋 전", e.target);
+            let file = new File();
+          }
+
+          function changeFile() {
+            console.log("changeFile");
+          }
+
+          function imgChange(src, e) {
+            console.log("imgChange");
             document.getElementById("photo").src = src;
+            changeFile();
+            // let form = new FormData();
+
+            // console.log();
+            // form.append("upfile");
           }
         </script>
         <div class="makeType">
