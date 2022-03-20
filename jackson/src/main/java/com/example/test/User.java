@@ -25,6 +25,7 @@ public class User {
     @NoArgsConstructor
     public static class Users {
         private Integer userId;
+        private String firstName;
         private String lastName;
         private String phoneNumber;
         private String emailAddress;
