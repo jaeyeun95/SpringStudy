@@ -1,7 +1,6 @@
 package com.example.test;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Getter;
@@ -15,27 +14,21 @@ import java.util.List;
 @Setter
 @ToString
 @NoArgsConstructor
-//@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-public class User {
-
-    @JsonProperty("product_name")
-    private String product;
-    @JsonProperty("order_number")
-    private String order;
-    @JsonProperty("age")
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+public class Cafe24 {
+    private String productName;
+    private String orderNumber;
     private Integer age;
-
     private List<Users> users;
 
     @Getter
     @Setter
     @ToString
-//    @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+    @NoArgsConstructor
+    @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
     public static class Users {
-        @JsonProperty("name")
-        private String buyerName;
-        @JsonProperty("phone")
-        private String phoneNumber;
+        private String name;
+        private String phone;
     }
 
 }
