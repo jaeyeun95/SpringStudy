@@ -16,7 +16,7 @@ import java.util.List;
 @ToString
 @NoArgsConstructor
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-public class Student {
+public class Student2 {
     private String firstName;
     private String lastName;
     private Integer age;
