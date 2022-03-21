@@ -1,5 +1,6 @@
 package com.example.test;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -8,6 +9,7 @@ import org.json.simple.parser.ParseException;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
 
 public class JsonParsing {
     public static void main(String[] args) throws IOException, ParseException {
@@ -29,6 +31,10 @@ public class JsonParsing {
         User user = objectMapper.convertValue(cafe24, User.class);
 
         System.out.println("user : " + user);
+
+        Request request = objectMapper.readValue(String.valueOf(user), new TypeReference<List<Request.Sample>>() {});
+
+        System.out.println("Request : " + request);
 
     }
 }

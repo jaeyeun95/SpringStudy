@@ -15,30 +15,30 @@ import java.util.List;
 @Setter
 @ToString
 @NoArgsConstructor
-@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+//@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class Student {
     private String firstName;
     private String lastName;
     private Integer age;
 
-    @JsonProperty("Request")
-    private Request request;
+//    @JsonProperty("Request")
+//    private Request request;
     private List<Phone> phoneNumbers;
 
-    @Getter
-    @Setter
-    @ToString
-    @NoArgsConstructor
-    @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-    public static class Request {
-        private String test;
-    }
+//    @Getter
+//    @Setter
+//    @ToString
+//    @NoArgsConstructor
+//    @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+//    public static class Request {
+//        private String test;
+//    }
 
     @Getter
     @Setter
     @ToString
     @NoArgsConstructor
-    @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+//    @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
     public static class Phone{
         private String type;
         private String phoneNumber;

@@ -27,14 +27,15 @@ public class TypeReferenceEx {
 //        System.out.println(map);
 
         JSONParser parser = new JSONParser();
-        Object obj = parser.parse(new FileReader("D:\\coding\\study_workspace\\SpringStudy\\jackson\\src\\main\\java\\com\\example\\test\\test.json"));
+//        Object obj = parser.parse(new FileReader("D:\\coding\\study_workspace\\SpringStudy\\jackson\\src\\main\\java\\com\\example\\test\\test.json"));
+        Object obj = parser.parse(new FileReader("D:\\coding\\study_workspace\\SpringStudy\\jackson\\src\\main\\java\\com\\example\\test\\test3.json"));
 
         JSONObject jo = (JSONObject) obj;
         String json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jo);
-//        System.out.println("json : "+json);
+        System.out.println("json : "+json);
 
         Map<String, Object> map = new HashMap<>();
-        map = objectMapper.readValue(json, new TypeReference<Map<String, List<User.Users>>>(){});
+        map = objectMapper.readValue(json, new TypeReference<Map<String, List<UserList.Users>>>(){});
 
         System.out.println("map : " + map);
 
